@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class Controller {
     public static void main(String[] args) {
@@ -11,7 +12,7 @@ public class Controller {
 
         // Reading data using readLine
         String name = null;
-        while (name != "stop"){
+        while (!Objects.equals(name, "stop")){
             try {
                 name = reader.readLine();
             } catch (IOException e) {
