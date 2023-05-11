@@ -12,8 +12,7 @@ public class Model{
             @Override
             public void run() {
                 update();
-            }
-        }, 0, 1000);
+            }}, 0, 1000);
     }
     public void update(){
         this.money += this.mps;
