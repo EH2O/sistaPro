@@ -1,28 +1,44 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Objects;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Controller {
+
+public class Controller extends JFrame{
+
+    Model model;
+    View view;
+    public Controller(Model m, View v){
+        this.model = m;
+        this.view = v;
+        this.setContentPane(view.getPanel());
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.pack();
+        this.setVisible(true);
+        view.setButtonPresser(new bp());
+        m.setController(this);
+        m.start();
+
+    }
+    private class bp implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            model.clicked();
+
+
+
+        }
+    }
+    public void ShowMoney(double m, double mps, double mpc){
+        view.displayMoney(m, mps, mpc);
+    }
     public static void main(String[] args) {
         Model model = new Model();
-        // Enter data using BufferReader
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(System.in));
+        View view = new View();
 
-        // Reading data using readLine
-        String name = null;
-        while (!Objects.equals(name, "stop")){
-            try {
-                name = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        Controller program = new Controller(model, view);
 
-            if(name.equals("get money")){
-                System.out.println(model.getMoney());
-            }
-        }
+        program.setVisible(true);
 
     }
 }
